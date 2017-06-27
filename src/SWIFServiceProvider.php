@@ -27,19 +27,20 @@ class SWIFServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('macc.swif.filter', function ($app) {
-            $memcache = app()->make('memcached.connector')->getMemcached();
+            $cache = app('cache');
+            $memcached = $cache->driver('memcached');
             $wordsAdapter = new \SIWF\Words\FileWordsAdapter(config('swif.blacklist.path'));
             $builder = new \SIWF\Tree\Builder($wordsAdapter);
-            $storage = new \SIWF\Storage\MemcacheStorageAdapter($builder,$memcache);
-            $resStorage = new \SIWF\Filter\Result\MemcacheAdapter($memcache);
+            $storage = new \SIWF\Storage\MemcachedStorageAdapter($builder,$memcached);
+            $resStorage = new \SIWF\Filter\Result\MemcachedAdapter($memcached);
 //update words list
             if(file_exists(config('swif.blacklist.path')))
             {
                 $mtime = filemtime(config('swif.blacklist.path'));
 
-                if($mtime - $memcache->get('siwf_blacklist_create_time') >0)
+                if($mtime - $memcached->get('siwf_blacklist_create_time') >0)
                 {
-                    $memcache->set('siwf_blacklist_create_time',time());
+                    $memcached->set('siwf_blacklist_create_time',time());
                     $storage->clear();
                     $resStorage->clear();
                 }
