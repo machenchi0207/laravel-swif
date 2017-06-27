@@ -15,7 +15,7 @@ class SWIFServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'swif.php' => config_path('swif.php'),
+            __DIR__.'swif.php' => app()->path().'/config/'.('swif.php'),
         ]);
     }
 
