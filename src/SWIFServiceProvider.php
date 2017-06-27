@@ -28,7 +28,7 @@ class SWIFServiceProvider extends ServiceProvider
     {
         $this->app->singleton('macc.swif.filter', function ($app) {
             $cache = app('cache');
-            $memcached = $cache->driver('memcached');
+            $memcached = $cache->store('memcached')->getStore()->getMemcached();
             $wordsAdapter = new \SIWF\Words\FileWordsAdapter(config('swif.blacklist.path'));
             $builder = new \SIWF\Tree\Builder($wordsAdapter);
             $storage = new \SIWF\Storage\MemcachedStorageAdapter($builder,$memcached);
