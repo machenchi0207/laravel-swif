@@ -1,0 +1,33 @@
+{
+  "name": "macc-laravel/swif",
+  "description": "A simple words illegal filter package for laravel",
+  "type": "library",
+  "authors": [
+    {
+      "name": "machenchi0207",
+      "email": "415401620@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Macc\\Laravel\\SWIF\\":"packages/macc-laravel/swif/src"
+    }
+  },
+  "require": {
+    "macc/swif": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    },
+    {
+      "packagist": false
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/machenchi0207/simpleillegalwordsfilter.git"
+    }
+  ]
+}
